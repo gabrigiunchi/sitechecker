@@ -3,6 +3,7 @@ import urllib.request
 import sys
 from playsound import playsound
 
+song = "aaaaaaaaaaaaa.mp3"
 previous = "marunn che bello sto programma"
 
 url = "https://www.bag.admin.ch/bag/it/home/krankheiten/ausbrueche-epidemien-pandemien/aktuelle-ausbrueche-epidemien/novel-cov/empfehlungen-fuer-reisende/quarantaene-einreisende.html#1204858541"
@@ -18,7 +19,7 @@ def check():
         if (previous != html and previous != ""):
             print("SITE HAS CHANGED")
             print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-            playsound("aaaaaaaaaaaaa.mp3")
+            playsound(song)
         previous = html
 
 t1 = multitimer.MultiTimer(10, check)
@@ -26,7 +27,11 @@ t1.start()
 
 s = ""
 while s.lower() != "stop":
-    s = input("Enter stop to stop (duh)\n")
+    try:
+        s = input("Enter stop to stop (duh)\n")
+    except KeyboardInterrupt:
+        s = "stop"
     if (s == "play"):
-        playsound("aaaaaaaaaaaaa.mp3")
+        playsound(song)
+        
 t1.stop()
