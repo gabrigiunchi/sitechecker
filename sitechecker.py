@@ -8,6 +8,7 @@ import argparse
 
 argumentsParser = argparse.ArgumentParser()
 argumentsParser.add_argument("-url")
+argumentsParser.add_argument("-frequency")
 argumentsParser.add_argument("-clean")
 argumentsParser.add_argument("-playOnStart")
 
@@ -17,17 +18,25 @@ song = "aaaaaaaaaaaaa.mp3"
 previous = "marunn che bello sto programma"
 url = "https://www.bag.admin.ch/bag/it/home/krankheiten/ausbrueche-epidemien-pandemien/aktuelle-ausbrueche-epidemien/novel-cov/empfehlungen-fuer-reisende/quarantaene-einreisende.html#1204858541"
 removeTagsAndComments = True
+frequency=60
 
 args = args=argumentsParser.parse_args()
+
 if args.url != None:
     url = args.url
+
 if args.clean != None:
     removeTagsAndComments = args.clean.lower() == "true"
+
+if args.frequency != None:
+    frequency = args.frequency
+
 if args.playOnStart is not None and args.playOnStart.lower() == "false":
     print("\nI am very dissapointed in you. You had the opportunity to listen to the voice of God and you did not take it. Shame.\n")
     previous = ""
 
 print(f"url: {url}")
+print(f"frequency: {frequency}")
 print(f"remove html tags and comments: {removeTagsAndComments}\n")
 
 def check():
@@ -43,7 +52,7 @@ def check():
             playsound(song)
         previous = html
 
-t1 = multitimer.MultiTimer(10, check)
+t1 = multitimer.MultiTimer(frequency, check)
 t1.start()
 
 s = ""
