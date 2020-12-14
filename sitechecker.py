@@ -13,7 +13,7 @@ argumentsParser.add_argument("-clean")
 argumentsParser.add_argument("-playOnStart")
 
 htmlTagRegex = re.compile(r"<.+?>")
-commentRegex = re.compile(r"<!--.*!-->")
+commentRegex = re.compile(r"<!--.*!?-->")
 song = "aaaaaaaaaaaaa.mp3"
 previous = "marunn che bello sto programma"
 url = "https://www.bag.admin.ch/bag/it/home/krankheiten/ausbrueche-epidemien-pandemien/aktuelle-ausbrueche-epidemien/novel-cov/empfehlungen-fuer-reisende/quarantaene-einreisende.html#1204858541"
@@ -22,13 +22,13 @@ frequency=60
 
 args = args=argumentsParser.parse_args()
 
-if args.url != None:
+if args.url is not None:
     url = args.url
 
-if args.clean != None:
+if args.clean is not None:
     removeTagsAndComments = args.clean.lower() == "true"
 
-if args.frequency != None:
+if args.frequency is not None:
     frequency = int(args.frequency)
 
 if args.playOnStart is not None and args.playOnStart.lower() == "false":
