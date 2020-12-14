@@ -1,6 +1,7 @@
 import multitimer
 import urllib.request
 import sys
+from datetime import datetime
 from playsound import playsound
 
 song = "aaaaaaaaaaaaa.mp3"
@@ -17,7 +18,7 @@ def check():
     with urllib.request.urlopen(url) as response:
         html = response.read()
         if (previous != html and previous != ""):
-            print("SITE HAS CHANGED")
+            print(f"SITE HAS CHANGED ({datetime.now()})")
             print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
             playsound(song)
         previous = html
@@ -33,5 +34,5 @@ while s.lower() != "stop":
         s = "stop"
     if (s == "play"):
         playsound(song)
-        
+
 t1.stop()
