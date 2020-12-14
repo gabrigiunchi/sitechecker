@@ -4,25 +4,36 @@ import sys
 from datetime import datetime
 from playsound import playsound
 import re
+import argparse
+
+argumentsParser = argparse.ArgumentParser()
+argumentsParser.add_argument("-url")
+argumentsParser.add_argument("-clean")
 
 htmlTagRegex = re.compile(r"<.+?>")
 commentRegex = re.compile(r"<!--.*!-->")
 song = "aaaaaaaaaaaaa.mp3"
 previous = "marunn che bello sto programma"
 url = "https://www.bag.admin.ch/bag/it/home/krankheiten/ausbrueche-epidemien-pandemien/aktuelle-ausbrueche-epidemien/novel-cov/empfehlungen-fuer-reisende/quarantaene-einreisende.html#1204858541"
+removeTagsAndComments = True
 
-if (len(sys.argv) > 1):
-    url = sys.argv[1]
+args = args=argumentsParser.parse_args()
+if args.url != None:
+    url = args.url
+if args.clean != None:
+    removeTagsAndComments = args.clean.lower() == "true"
 
 print(f"url: {url}")
+print(f"remove html tags and comments: {removeTagsAndComments}")
 
 def check():
     global previous
     with urllib.request.urlopen(url) as response:
         html = response.read().decode('utf-8')
-        html = htmlTagRegex.sub("", html)
-        html = commentRegex.sub("", html)
-        if (previous != html and previous != ""):
+        if removeTagsAndComments:
+            html = htmlTagRegex.sub("", html)
+            html = commentRegex.sub("", html)
+        if previous != html and previous != "":
             print(f"SITE HAS CHANGED ({datetime.now()})")
             print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
             playsound(song)
@@ -37,7 +48,7 @@ while s.lower() != "stop":
         s = input("Enter stop to stop (duh)\n")
     except KeyboardInterrupt:
         s = "stop"
-    if (s == "play"):
+    if s == "play":
         playsound(song)
 
 t1.stop()
