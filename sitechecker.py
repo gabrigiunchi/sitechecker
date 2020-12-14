@@ -36,7 +36,7 @@ if args.playOnStart is not None and args.playOnStart.lower() == "false":
     previous = ""
 
 print(f"url: {url}")
-print(f"frequency: {frequency}")
+print(f"frequency: {frequency}s")
 print(f"remove html tags and comments: {removeTagsAndComments}\n")
 
 def check():
