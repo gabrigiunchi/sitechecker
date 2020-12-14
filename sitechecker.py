@@ -3,20 +3,25 @@ import urllib.request
 import sys
 from datetime import datetime
 from playsound import playsound
+import re
 
+htmlTagRegex = re.compile(r"<.+?>")
+commentRegex = re.compile(r"<!--.*!-->")
 song = "aaaaaaaaaaaaa.mp3"
 previous = "marunn che bello sto programma"
-
 url = "https://www.bag.admin.ch/bag/it/home/krankheiten/ausbrueche-epidemien-pandemien/aktuelle-ausbrueche-epidemien/novel-cov/empfehlungen-fuer-reisende/quarantaene-einreisende.html#1204858541"
+
 if (len(sys.argv) > 1):
     url = sys.argv[1]
 
-print(f"Url: {url}")
+print(f"url: {url}")
 
 def check():
     global previous
     with urllib.request.urlopen(url) as response:
-        html = response.read()
+        html = response.read().decode('utf-8')
+        html = htmlTagRegex.sub("", html)
+        html = commentRegex.sub("", html)
         if (previous != html and previous != ""):
             print(f"SITE HAS CHANGED ({datetime.now()})")
             print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
