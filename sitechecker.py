@@ -13,7 +13,7 @@ argumentsParser.add_argument("-clean")
 argumentsParser.add_argument("-playOnStart")
 
 htmlTagRegex = re.compile(r"<.+?>")
-commentRegex = re.compile(r"<!--.*!?-->")
+commentRegex = re.compile(r"<!--.*?!-->")
 song = "aaaaaaaaaaaaa.mp3"
 previous = "marunn che bello sto programma"
 url = "https://www.bag.admin.ch/bag/it/home/krankheiten/ausbrueche-epidemien-pandemien/aktuelle-ausbrueche-epidemien/novel-cov/empfehlungen-fuer-reisende/quarantaene-einreisende.html#1204858541"
