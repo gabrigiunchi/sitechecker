@@ -29,7 +29,7 @@ if args.clean != None:
     removeTagsAndComments = args.clean.lower() == "true"
 
 if args.frequency != None:
-    frequency = args.frequency
+    frequency = int(args.frequency)
 
 if args.playOnStart is not None and args.playOnStart.lower() == "false":
     print("\nI am very dissapointed in you. You had the opportunity to listen to the voice of God and you did not take it. Shame.\n")
