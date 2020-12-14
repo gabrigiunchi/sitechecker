@@ -9,6 +9,7 @@ import argparse
 argumentsParser = argparse.ArgumentParser()
 argumentsParser.add_argument("-url")
 argumentsParser.add_argument("-clean")
+argumentsParser.add_argument("-playOnStart")
 
 htmlTagRegex = re.compile(r"<.+?>")
 commentRegex = re.compile(r"<!--.*!-->")
@@ -22,9 +23,12 @@ if args.url != None:
     url = args.url
 if args.clean != None:
     removeTagsAndComments = args.clean.lower() == "true"
+if args.playOnStart is not None and args.playOnStart.lower() == "false":
+    print("\nI am very dissapointed in you. You had the opportunity to listen to the voice of God and you did not take it. Shame.\n")
+    previous = ""
 
 print(f"url: {url}")
-print(f"remove html tags and comments: {removeTagsAndComments}")
+print(f"remove html tags and comments: {removeTagsAndComments}\n")
 
 def check():
     global previous
@@ -35,7 +39,7 @@ def check():
             html = commentRegex.sub("", html)
         if previous != html and previous != "":
             print(f"SITE HAS CHANGED ({datetime.now()})")
-            print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+            print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n")
             playsound(song)
         previous = html
 
@@ -45,7 +49,7 @@ t1.start()
 s = ""
 while s.lower() != "stop":
     try:
-        s = input("Enter stop to stop (duh)\n")
+        s = input("Enter stop to stop (duh)\n\n")
     except KeyboardInterrupt:
         s = "stop"
     if s == "play":
